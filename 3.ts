@@ -1,19 +1,19 @@
 const processAngleBrackets = (str: string): string => {
-    let count = 0
-    let extras = 0
+    let missedClosing = 0
+    let missedOpening = 0
     for (const char of str) {
       if (char === '>') {
-         if (count === 0) {
-            extras ++
+         if (missedClosing === 0) {
+            missedOpening ++
          } else {
-            count --
+            missedClosing --
          };
       } else {
-         count++
+         missedClosing ++
       };
     };
-    const leadingTags = '<'.repeat(extras)
-    const trailingTags = '>'.repeat(count)
+    const leadingTags = '<'.repeat(missedOpening)
+    const trailingTags = '>'.repeat(missedClosing)
     return leadingTags + str + trailingTags
 }
 const resultBracket = processAngleBrackets('><<><');
